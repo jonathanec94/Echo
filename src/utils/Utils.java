@@ -21,6 +21,7 @@ public class Utils {
       properties.load(is);
     } catch (IOException ex) {
       System.out.println(String.format("Could not locate the %1$s file.", propertyFile));
+        System.out.println("hej");
       return null;
     }
     return properties;
