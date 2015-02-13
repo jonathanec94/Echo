@@ -14,7 +14,6 @@ import utils.Utils;
 
 
 public class EchoServer {
-
   private static boolean keepRunning = true;
   private static ServerSocket serverSocket;
   private static final Properties properties = Utils.initProperties("server.properties");
@@ -45,7 +44,7 @@ public class EchoServer {
     int port = Integer.parseInt(properties.getProperty("port"));
     String ip = properties.getProperty("serverIp");
     
-    Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, "Sever started. Listening on: "+port+", bound to: "+ip);
+    Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, "Server started. Listening on: "+port+", bound to: "+ip);
     try {
       serverSocket = new ServerSocket();
       serverSocket.bind(new InetSocketAddress(ip, port));
@@ -61,6 +60,15 @@ public class EchoServer {
   }
 
   public static void main(String[] args) {
+    try{
+    String logFile = properties.getProperty("logFile");
+    Utils.setLogFile(logFile,EchoServer.class.getName());
     new EchoServer().runServer();
+     }
+    finally
+    {
+    Utils.closeLogger(EchoServer.class.getName());
+    }
+    
   }
 }
